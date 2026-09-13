@@ -1,56 +1,51 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * App colors and theme definitions.
  */
 
 import { Platform } from 'react-native';
-import { DarkTheme, DefaultTheme, type Theme } from "@react-navigation/native";
 
 const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
 
 export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+    light: {
+        text: '#11181C',
+        background: '#fff',
+        tint: tintColorLight,
+        icon: '#687076',
+        tabIconDefault: '#687076',
+        tabIconSelected: tintColorLight,
+    },
+    dark: {
+        text: '#ECEDEE',
+        background: '#151718',
+        tint: tintColorDark,
+        icon: '#9BA1A6',
+        tabIconDefault: '#9BA1A6',
+        tabIconSelected: tintColorDark,
+    },
 };
 
 export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
+    ios: {
+        sans: 'system-ui',
+        serif: 'ui-serif',
+        rounded: 'ui-rounded',
+        mono: 'ui-monospace',
+    },
+    default: {
+        sans: 'normal',
+        serif: 'serif',
+        rounded: 'normal',
+        mono: 'monospace',
+    },
+    web: {
+        sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        serif: "Georgia, 'Times New Roman', serif",
+        rounded:
+            "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
+        mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+    },
 });
 
 export const THEME = {
@@ -80,6 +75,7 @@ export const THEME = {
         chart4: 'hsl(43 74% 66%)',
         chart5: 'hsl(27 87% 67%)',
     },
+
     dark: {
         background: 'hsl(0 0% 3.9%)',
         foreground: 'hsl(0 0% 98%)',
@@ -108,9 +104,15 @@ export const THEME = {
     },
 };
 
-export const NAV_THEME: Record<'light' | 'dark', Theme> = {
+/**
+ * Navigation theme colors.
+ *
+ * Kept independent from React Navigation so this file
+ * can be used with Expo Router without importing
+ * @react-navigation/native.
+ */
+export const NAV_THEME = {
     light: {
-        ...DefaultTheme,
         colors: {
             background: THEME.light.background,
             border: THEME.light.border,
@@ -120,8 +122,8 @@ export const NAV_THEME: Record<'light' | 'dark', Theme> = {
             text: THEME.light.foreground,
         },
     },
+
     dark: {
-        ...DarkTheme,
         colors: {
             background: THEME.dark.background,
             border: THEME.dark.border,
@@ -131,4 +133,4 @@ export const NAV_THEME: Record<'light' | 'dark', Theme> = {
             text: THEME.dark.foreground,
         },
     },
-};
+} as const;

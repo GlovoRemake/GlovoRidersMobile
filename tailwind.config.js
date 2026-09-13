@@ -7,6 +7,14 @@ module.exports = {
     presets: [require('nativewind/preset')],
     theme: {
         extend: {
+            fontFamily: {
+                nunito: ["Nunito"],
+                "nunito-medium": ["NunitoMedium"],
+                "nunito-semibold": ["NunitoSemiBold"],
+                "nunito-bold": ["NunitoBold"],
+                "nunito-extrabold": ["NunitoExtraBold"],
+                "nunito-black": ["NunitoBlack"],
+            },
             colors: {
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',
