@@ -12,21 +12,21 @@ import * as WebBrowser from "expo-web-browser";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { router } from 'expo-router';
-import {AuthHero} from "@/components/ui/custom/authHero";
-import {AuthCard} from "@/components/ui/custom/authCard";
-import {useRegisterMutation, useSendCodeMutation, useVerifyCodeMutation} from "@/store/service/apiAccount";
-import {useRef, useState} from "react";
-import {ApiError} from "@/types/api/ApiError";
-import {saveSecureStore} from "@/utils/secureStore";
-import {Controller, useForm} from "react-hook-form";
-import {IAuthRegister} from "@/types/auth/IAuthRegister";
+import { AuthHero } from "@/components/ui/custom/authHero";
+import { AuthCard } from "@/components/ui/custom/authCard";
+import { useRegisterMutation, useSendCodeMutation, useVerifyCodeMutation } from "@/store/service/apiAccount";
+import { useRef, useState } from "react";
+import { ApiError } from "@/types/api/ApiError";
+import { saveSecureStore } from "@/utils/secureStore";
+import { Controller, useForm } from "react-hook-form";
+import { IAuthRegister } from "@/types/auth/IAuthRegister";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
-    const [sendCode, {isLoading: isSending}] = useSendCodeMutation();
-    const [verifyCode, {isLoading: isVerifing}] = useVerifyCodeMutation();
-    const [register, {isLoading: isRegistering}] = useRegisterMutation();
+    const [sendCode, { isLoading: isSending }] = useSendCodeMutation();
+    const [verifyCode, { isLoading: isVerifing }] = useVerifyCodeMutation();
+    const [register, { isLoading: isRegistering }] = useRegisterMutation();
 
     const [stage, setStage] = useState<"email" | "verifyCode" | "registration">("email");
 
@@ -132,7 +132,7 @@ export default function LoginScreen() {
             } else {
                 saveSecureStore("accessToken", res.accessToken);
                 saveSecureStore("refreshToken", res.refreshToken);
-                router.replace("/(main)/test");
+                router.replace("/(tabs)");
             }
         } catch (error: any) {
             const errors = error?.data?.errors;
@@ -164,13 +164,13 @@ export default function LoginScreen() {
             saveSecureStore("accessToken", res.accessToken);
             saveSecureStore("refreshToken", res.refreshToken);
 
-            router.replace("/(main)/test");
+            router.replace("/(tabs)");
         } catch (e) {
             console.error(e);
         }
     }
 
-    const {handleSubmit, control, formState: { errors }} = useForm<IAuthRegister>();
+    const { handleSubmit, control, formState: { errors } } = useForm<IAuthRegister>();
 
     return (
         <View className="flex-1 bg-white dark:bg-[#0B0D0F]">
@@ -252,7 +252,7 @@ export default function LoginScreen() {
 
                                     {/* Continue */}
                                     <Button
-                                        onPress={isSending ? () => {} : sendCodeSubmit}
+                                        onPress={isSending ? () => { } : sendCodeSubmit}
                                         className="mt-4 h-14 rounded-full flex justify-center items-center bg-[#00A082] dark:bg-[#00A082] dark:active:bg-[#00A082]/30 transition duration-200"
                                     >
                                         {isSending ? (
@@ -338,7 +338,7 @@ export default function LoginScreen() {
 
                                     {/* Continue */}
                                     <Button
-                                        onPress={isVerifing ? () => {} : verifyCodeSubmit}
+                                        onPress={isVerifing ? () => { } : verifyCodeSubmit}
                                         className="mt-4 h-14 rounded-full flex justify-center items-center bg-[#00A082] dark:bg-[#00A082] dark:active:bg-[#00A082]/30 transition duration-200"
                                     >
                                         {isVerifing ? (
@@ -395,14 +395,13 @@ export default function LoginScreen() {
                                                     rules={{
                                                         required: "Ім'я обов'язкове",
                                                     }}
-                                                    render={({field: {onChange, onBlur, value}}) => (
+                                                    render={({ field: { onChange, onBlur, value } }) => (
                                                         <>
                                                             <Input
-                                                                className={`min-h-14 flex-1 bg-white px-4 text-neutral-950 dark:bg-[#1B1F23] dark:text-white ${
-                                                                    errors.firstName
+                                                                className={`min-h-14 flex-1 bg-white px-4 text-neutral-950 dark:bg-[#1B1F23] dark:text-white ${errors.firstName
                                                                         ? "border-red-400 dark:border-red-500"
                                                                         : "border-neutral-200 dark:border-[#292E33]"
-                                                                }`}
+                                                                    }`}
                                                                 keyboardType="default"
                                                                 placeholder="Vova"
                                                                 placeholderTextColor="#A3A3A3"
@@ -444,14 +443,13 @@ export default function LoginScreen() {
                                                     rules={{
                                                         required: "Прізвище обов'язкове",
                                                     }}
-                                                    render={({field: {onChange, onBlur, value}}) => (
+                                                    render={({ field: { onChange, onBlur, value } }) => (
                                                         <>
                                                             <Input
-                                                                className={`min-h-14 flex-1 bg-white px-4 text-neutral-950 dark:bg-[#1B1F23] dark:text-white ${
-                                                                    errors.lastName
+                                                                className={`min-h-14 flex-1 bg-white px-4 text-neutral-950 dark:bg-[#1B1F23] dark:text-white ${errors.lastName
                                                                         ? "border-red-400 dark:border-red-500"
                                                                         : "border-neutral-200 dark:border-[#292E33]"
-                                                                }`}
+                                                                    }`}
                                                                 keyboardType="default"
                                                                 placeholder="Novak"
                                                                 placeholderTextColor="#A3A3A3"
@@ -494,14 +492,13 @@ export default function LoginScreen() {
                                             rules={{
                                                 required: "Пароль обов'язковий",
                                             }}
-                                            render={({field: {onChange, onBlur, value}}) => (
+                                            render={({ field: { onChange, onBlur, value } }) => (
                                                 <>
                                                     <Input
-                                                        className={`min-h-14 flex-1 bg-white px-4 text-neutral-950 dark:bg-[#1B1F23] dark:text-white ${
-                                                            errors.password
+                                                        className={`min-h-14 flex-1 bg-white px-4 text-neutral-950 dark:bg-[#1B1F23] dark:text-white ${errors.password
                                                                 ? "border-red-400 dark:border-red-500"
                                                                 : "border-neutral-200 dark:border-[#292E33]"
-                                                        }`}
+                                                            }`}
                                                         keyboardType="visible-password"
                                                         placeholder="••••••••"
                                                         placeholderTextColor="#A3A3A3"
@@ -545,7 +542,7 @@ export default function LoginScreen() {
                                     <Button
                                         onPress={
                                             isRegistering
-                                                ? () => {}
+                                                ? () => { }
                                                 : handleSubmit(registerSubmit)
                                         }
                                         className="mt-4 h-14 rounded-full flex justify-center items-center bg-[#00A082] dark:bg-[#00A082] dark:active:bg-[#00A082]/30 transition duration-200"

@@ -1,11 +1,11 @@
-import {router, Stack} from "expo-router";
-import {useEffect} from "react";
-import {getSecureStore} from "@/utils/secureStore";
+import { router, Stack } from "expo-router";
+import { useEffect } from "react";
+import { getSecureStore } from "@/utils/secureStore";
 
 export default function AuthLayout() {
     useEffect(() => {
         if (getSecureStore("refreshToken")) {
-            router.replace("/(main)/test");
+            router.replace("/(tabs)");
         }
     }, [])
 

@@ -10,30 +10,30 @@ import * as WebBrowser from "expo-web-browser";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { router } from "expo-router";
-import {AuthHero} from "@/components/ui/custom/authHero";
-import {AuthCard} from "@/components/ui/custom/authCard";
-import {CircleAlert, Loader} from "lucide-react-native";
-import {useLoginMutation} from "@/store/service/apiAccount";
-import {IAuthLogin} from "@/types/auth/IAuthLogin";
-import {Controller, useForm} from "react-hook-form";
-import {AlertDescription, AlertTitle, Alert} from "@/components/ui/alert";
-import {saveSecureStore} from "@/utils/secureStore";
+import { AuthHero } from "@/components/ui/custom/authHero";
+import { AuthCard } from "@/components/ui/custom/authCard";
+import { CircleAlert, Loader } from "lucide-react-native";
+import { useLoginMutation } from "@/store/service/apiAccount";
+import { IAuthLogin } from "@/types/auth/IAuthLogin";
+import { Controller, useForm } from "react-hook-form";
+import { AlertDescription, AlertTitle, Alert } from "@/components/ui/alert";
+import { saveSecureStore } from "@/utils/secureStore";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
-    const [login, {isLoading, isError}] = useLoginMutation();
+    const [login, { isLoading, isError }] = useLoginMutation();
 
     const loginSubmit = async (data: IAuthLogin) => {
         try {
             const res = await login(data).unwrap();
             saveSecureStore("accessToken", res.accessToken);
             saveSecureStore("refreshToken", res.refreshToken);
-            router.replace("/(main)/test");
-        } catch {}
+            router.replace("/(tabs)");
+        } catch { }
     }
 
-    const {handleSubmit, control, formState: { errors }} = useForm<IAuthLogin>();
+    const { handleSubmit, control, formState: { errors } } = useForm<IAuthLogin>();
 
     return (
         <View className="flex-1 bg-white dark:bg-[#0B0D0F]">
@@ -86,14 +86,13 @@ export default function LoginScreen() {
                             rules={{
                                 required: "Електронна пошта обов'язкова",
                             }}
-                            render={({field: {onChange, onBlur, value}}) => (
+                            render={({ field: { onChange, onBlur, value } }) => (
                                 <>
                                     <Input
-                                        className={`min-h-14 flex-1 bg-white px-4 text-neutral-950 dark:bg-[#1B1F23] dark:text-white ${
-                                            errors.email
+                                        className={`min-h-14 flex-1 bg-white px-4 text-neutral-950 dark:bg-[#1B1F23] dark:text-white ${errors.email
                                                 ? "border-red-400 dark:border-red-500"
                                                 : "border-neutral-200 dark:border-[#292E33]"
-                                        }`}
+                                            }`}
                                         keyboardType="email-address"
                                         placeholder="example@gmail.com"
                                         placeholderTextColor="#A3A3A3"
@@ -134,14 +133,13 @@ export default function LoginScreen() {
                             rules={{
                                 required: "Пароль обов'язковий",
                             }}
-                            render={({field: {onChange, onBlur, value}}) => (
+                            render={({ field: { onChange, onBlur, value } }) => (
                                 <>
                                     <Input
-                                        className={`min-h-14 flex-1 bg-white px-4 text-neutral-950 dark:bg-[#1B1F23] dark:text-white ${
-                                            errors.password
+                                        className={`min-h-14 flex-1 bg-white px-4 text-neutral-950 dark:bg-[#1B1F23] dark:text-white ${errors.password
                                                 ? "border-red-400 dark:border-red-500"
                                                 : "border-neutral-200 dark:border-[#292E33]"
-                                        }`}
+                                            }`}
                                         keyboardType="visible-password"
                                         placeholder="••••••••"
                                         placeholderTextColor="#A3A3A3"
@@ -170,9 +168,9 @@ export default function LoginScreen() {
                     </View>
 
                     {/* Continue */}
-                    <Button onPress={isLoading ? () => {} : handleSubmit(loginSubmit)} className="mt-4 h-14 rounded-full flex justify-center items-center bg-[#00A082] dark:bg-[#00A082] dark:active:bg-[#00A082]/30 transition duration-200">
+                    <Button onPress={isLoading ? () => { } : handleSubmit(loginSubmit)} className="mt-4 h-14 rounded-full flex justify-center items-center bg-[#00A082] dark:bg-[#00A082] dark:active:bg-[#00A082]/30 transition duration-200">
                         {isLoading ? (
-                            <ActivityIndicator className={"text-white dark:text-[#0B0D0F]"} size={"small"}/>
+                            <ActivityIndicator className={"text-white dark:text-[#0B0D0F]"} size={"small"} />
                         ) : (
                             <Text className="text-[16px] font-nunito-bold text-white">
                                 Продовжити
