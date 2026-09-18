@@ -17,8 +17,8 @@ import {
     Nunito_800ExtraBold,
     Nunito_900Black,
 } from '@expo-google-fonts/nunito';
-import {View} from "react-native";
-import {configureReanimatedLogger, ReanimatedLogLevel} from "react-native-reanimated";
+import { View } from "react-native";
+import { configureReanimatedLogger, ReanimatedLogLevel } from "react-native-reanimated";
 
 configureReanimatedLogger({
     level: ReanimatedLogLevel.warn,
@@ -51,6 +51,11 @@ export default function RootLayout() {
 
                 <Stack.Screen
                     name="(main)/test"
+                    options={{ headerShown: false }}
+                />
+
+                <Stack.Screen
+                    name="(tabs)"
                     options={{ headerShown: false }}
                 />
 

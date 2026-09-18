@@ -3,6 +3,9 @@ import { baseQueryWithReauth } from "@/utils/fetchBaseQuery";
 import {ITokensResponse} from "@/types/token/ITokensResponse";
 import {IAuthLogin} from "@/types/auth/IAuthLogin";
 import {IAuthRegister} from "@/types/auth/IAuthRegister";
+import {IProfile} from "@/types/account/IProfile";
+import {IUpdateProfile} from "@/types/account/IUpdateProfile";
+import {File} from "expo-file-system";
 
 
 export const apiAccount = createApi({
@@ -58,6 +61,30 @@ export const apiAccount = createApi({
             }),
             invalidatesTags: ["Account"]
         }),
+        getProfile: builder.query<IProfile, void>({
+            query: () => "/Account/GetProfile",
+            providesTags: ["Account"],
+        }),
+        updateProfile: builder.mutation<void, IUpdateProfile>({
+            query: (data) => {
+                const formData = new FormData();
+
+                formData.append("firstName", data.firstName);
+                formData.append("lastName", data.lastName);
+                formData.append("phone", data.phone);
+
+                if (data.avatar?.uri) {
+                    formData.append("avatar", new File(data.avatar.uri));
+                }
+
+                return {
+                    url: "/Account/update-profile",
+                    method: "POST",
+                    body: formData,
+                };
+            },
+            invalidatesTags: ["Account"],
+        }),
     }),
 });
 
@@ -68,4 +95,6 @@ export const {
     useSendCodeMutation,
     useVerifyCodeMutation,
     useRegisterMutation,
+    useGetProfileQuery,
+    useUpdateProfileMutation,
 } = apiAccount;
