@@ -12,17 +12,16 @@ export default function IOSNativeTabs() {
                 fontFamily: "Nunito",
             }}
         >
-            <NativeTabs.Trigger name="index">
-                <NativeTabs.Trigger.Label>Головна</NativeTabs.Trigger.Label>
+            <NativeTabs.Trigger name="home">
+                <NativeTabs.Trigger.Label>Замовлення</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
-                    sf={{ default: "house", selected: "house.fill" }}
-                    md={{ default: "home", selected: "home" }}
+                    sf={{ default: "square.stack.3d.down.right", selected: "square.stack.3d.down.right.fill" }}
                 />
             </NativeTabs.Trigger>
-            <NativeTabs.Trigger name="explore">
-                <NativeTabs.Trigger.Label>Спробувати</NativeTabs.Trigger.Label>
+            <NativeTabs.Trigger name="earning">
+                <NativeTabs.Trigger.Label>Гаманець</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
-                    sf={{ default: "magnifyingglass", selected: "magnifyingglass" }}
+                    sf={{ default: "wallet.bifold", selected: "wallet.bifold.fill" }}
                     md={{ default: "search", selected: "search" }}
                 />
             </NativeTabs.Trigger>

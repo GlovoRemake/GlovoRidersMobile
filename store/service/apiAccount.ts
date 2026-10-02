@@ -6,6 +6,7 @@ import {IAuthRegister} from "@/types/auth/IAuthRegister";
 import {IProfile} from "@/types/account/IProfile";
 import {IUpdateProfile} from "@/types/account/IUpdateProfile";
 import {File} from "expo-file-system";
+import {IUserPayment} from "@/types/account/IUserPayment";
 
 
 export const apiAccount = createApi({
@@ -85,6 +86,10 @@ export const apiAccount = createApi({
             },
             invalidatesTags: ["Account"],
         }),
+        getPayments: builder.query<IUserPayment, void>({
+            query: () => "/Account/payments",
+            providesTags: ["Account"],
+        }),
     }),
 });
 
@@ -97,4 +102,6 @@ export const {
     useRegisterMutation,
     useGetProfileQuery,
     useUpdateProfileMutation,
+    useRefreshMutation,
+    useGetPaymentsQuery
 } = apiAccount;

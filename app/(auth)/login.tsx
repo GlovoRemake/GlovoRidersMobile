@@ -132,7 +132,7 @@ export default function LoginScreen() {
             } else {
                 saveSecureStore("accessToken", res.accessToken);
                 saveSecureStore("refreshToken", res.refreshToken);
-                router.replace("/(tabs)");
+                router.replace("/(tabs)/home");
             }
         } catch (error: any) {
             const errors = error?.data?.errors;
@@ -164,7 +164,7 @@ export default function LoginScreen() {
             saveSecureStore("accessToken", res.accessToken);
             saveSecureStore("refreshToken", res.refreshToken);
 
-            router.replace("/(tabs)");
+            router.replace("/(tabs)/home");
         } catch (e) {
             console.error(e);
         }
