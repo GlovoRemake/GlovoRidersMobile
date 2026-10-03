@@ -35,6 +35,7 @@ import { OrderStatus } from "@/types/order/OrderStatus";
 import {useDispatch} from "react-redux";
 import {useAppDispatch} from "@/store";
 import {apiAccount} from "@/store/service/apiAccount";
+import { Linking } from "react-native";
 
 const SIGNALR_URL = `${APP_ENV.API_URL}/hubs/courier`;
 
@@ -906,6 +907,20 @@ function PayoutCard({ order, theme }: { order: IOrder; theme: any }) {
 /* ================= CUSTOMER ================= */
 
 function CustomerCard({ order, theme }: { order: IOrder; theme: any }) {
+    const handleCall = async () => {
+        const phone = order.user.phone?.replace(/\s+/g, "");
+
+        if (!phone) {
+            return;
+        }
+
+        try {
+            await Linking.openURL(`tel:${phone}`);
+        } catch (error) {
+            console.error("CALL ERROR:", error);
+        }
+    };
+
     return (
         <View
             className="mb-4 rounded-[20px] border p-4"
@@ -951,6 +966,7 @@ function CustomerCard({ order, theme }: { order: IOrder; theme: any }) {
                 </View>
 
                 <Pressable
+                    onPress={handleCall}
                     className="h-[42px] w-[42px] items-center justify-center rounded-[14px]"
                     style={{ backgroundColor: theme.greenBg }}
                 >
@@ -960,6 +976,7 @@ function CustomerCard({ order, theme }: { order: IOrder; theme: any }) {
         </View>
     );
 }
+
 
 /* ================= HELPERS ================= */
 
