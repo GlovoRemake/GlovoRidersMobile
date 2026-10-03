@@ -56,10 +56,6 @@ export function AvailableOrderCard({ order, onAccept }: AvailableOrderCardProps)
 
             <View className="mt-3 flex-row items-center justify-between">
                 <View className="flex-row items-center">
-                    <Clock size={14} color="#6B7280" />
-                    <Text className="ml-1 text-xs text-gray-500 dark:text-gray-400">
-                        {order.etaMin} хв · {order.distanceKm} км
-                    </Text>
                 </View>
 
                 <Pressable
