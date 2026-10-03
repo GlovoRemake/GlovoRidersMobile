@@ -19,12 +19,15 @@ import {
 
 import { ApiResponse } from "@/types/api/ApiResponse";
 import { ITokensResponse } from "@/types/token/ITokensResponse";
+import {router} from "expo-router";
 
 interface CustomFetchArgs extends FetchArgs {
     meta?: {
         isBlob?: boolean;
+        isMultipart?: boolean;
     };
 }
+
 
 type BaseQueryResult = QueryReturnValue<
     unknown,
@@ -57,6 +60,10 @@ export const baseQueryWithReauth: BaseQueryFn<
     const isBlob =
         typeof args !== "string" &&
         args.meta?.isBlob === true;
+
+    const isMultipart =
+        typeof args !== "string" &&
+        args.meta?.isMultipart === true;
 
     let result = await baseQuery(
         isBlob
@@ -96,8 +103,11 @@ export const baseQueryWithReauth: BaseQueryFn<
                     url: "/Account/Refresh",
                     method: "POST",
                     body: {
-                        Token: refreshToken,
+                        token: refreshToken,
                     },
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
                 },
                 api,
                 extraOptions
@@ -129,7 +139,8 @@ export const baseQueryWithReauth: BaseQueryFn<
     api.dispatch(setAccessToken(refreshData.value.accessToken));
     api.dispatch(setRefreshToken(refreshData.value.refreshToken));
 
-    saveSecureStore("refreshToken", refreshData.value.refreshToken)
+    saveSecureStore("accessToken", refreshData.value.accessToken);
+    saveSecureStore("refreshToken", refreshData.value.refreshToken);
 
     result = await baseQuery(args, api, extraOptions);
 
@@ -174,15 +185,11 @@ function logoutAndRedirect(api: BaseQueryApi): void {
     deleteSecureStore("accessToken");
     deleteSecureStore("refreshToken");
 
-    if (typeof window === "undefined") {
-        return;
-    }
-
     if (redirecting) {
         return;
     }
 
     redirecting = true;
 
-    window.location.replace("/auth/login");
+    router.replace("/(auth)/login");
 }

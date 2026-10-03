@@ -29,7 +29,7 @@ export default function LoginScreen() {
             const res = await login(data).unwrap();
             saveSecureStore("accessToken", res.accessToken);
             saveSecureStore("refreshToken", res.refreshToken);
-            router.replace("/(tabs)");
+            router.replace("/(tabs)/home");
         } catch { }
     }
 

@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Home, Search, User } from "lucide-react-native";
+import {Home, Layers, Search, User, Wallet} from "lucide-react-native";
 import { useColorScheme } from "react-native";
 
 export default function AndroidTabs() {
@@ -39,17 +39,17 @@ export default function AndroidTabs() {
             }}
         >
             <Tabs.Screen
-                name="index"
+                name="home"
                 options={{
                     title: "Головна",
-                    tabBarIcon: ({ color }) => <Home color={color} size={20} />,
+                    tabBarIcon: ({ color }) => <Layers color={color} size={20} />,
                 }}
             />
             <Tabs.Screen
-                name="explore"
+                name="earning"
                 options={{
-                    title: "Спробувати",
-                    tabBarIcon: ({ color }) => <Search color={color} size={20} />,
+                    title: "Гаманець",
+                    tabBarIcon: ({ color }) => <Wallet color={color} size={20} />,
                 }}
             />
             <Tabs.Screen
