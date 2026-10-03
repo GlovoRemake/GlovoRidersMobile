@@ -10,6 +10,17 @@ import {useGetPaymentsQuery} from "@/store/service/apiAccount";
 
 const PERIODS = ["Сьогодні", "Тиждень", "Місяць"];
 
+const PAYMENT_DATE_FORMATTER = new Intl.DateTimeFormat("uk-UA", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+});
+const PAYMENT_TIME_FORMATTER = new Intl.DateTimeFormat("uk-UA", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+});
+
 const WEEK = [
     { day: "Пн", value: 620 },
     { day: "Вт", value: 480 },
@@ -65,14 +76,21 @@ export default function EarningsScreen() {
                     Виплати
                 </Text>
 
-                {data?.payments.map((order, index) => (
-                    <HistoryOrderRow key={index} order={{
-                        restaurant: order.companyName,
-                        date: order.createdAt,
-                        time: order.createdAt,
-                        earned: order.amount,
-                    }} />
-                ))}
+                {data?.payments.map((order, index) => {
+                    const createdAt = new Date(order.createdAt);
+
+                    return (
+                        <HistoryOrderRow
+                            key={index}
+                            order={{
+                                restaurant: order.companyName,
+                                date: PAYMENT_DATE_FORMATTER.format(createdAt),
+                                time: PAYMENT_TIME_FORMATTER.format(createdAt),
+                                earned: order.amount,
+                            }}
+                        />
+                    );
+                })}
             </ScrollView>
         </View>
     );
