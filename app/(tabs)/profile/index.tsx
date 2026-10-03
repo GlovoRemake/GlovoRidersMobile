@@ -26,6 +26,19 @@ export default function ProfileScreen() {
                 <Text className="text-center text-base text-gray-500 dark:text-gray-400">
                     Не вдалося завантажити профіль
                 </Text>
+                <Button
+                    className="mt-5 h-14 flex-row items-center justify-center rounded-2xl bg-white dark:bg-zinc-900"
+                    onPress={() => {
+                        deleteSecureStore("accessToken");
+                        deleteSecureStore("refreshToken");
+                        router.replace("/(auth)/login");
+                    }}
+                >
+                    <LogOut size={20} color="#EF4444" />
+                    <Text className="ml-2 text-base font-bold text-red-500">
+                        Вийти з акаунта
+                    </Text>
+                </Button>
             </View>
         );
     }
@@ -79,26 +92,6 @@ export default function ProfileScreen() {
                             {profile.phone}
                         </Text>
                     </View>
-                </View>
-
-                <Text className="mb-3 mt-7 text-lg font-bold text-gray-900 dark:text-white">
-                    Мій акаунт
-                </Text>
-
-                <View className="overflow-hidden rounded-[24px] bg-white dark:bg-zinc-900">
-                    <ProfileRow
-                        icon={<MapPin size={21} color="#111827" />}
-                        iconBackground="#FFF4D6"
-                        title="Мої адреси"
-                        subtitle="Керування адресами доставки"
-                    />
-                    <Divider />
-                    <ProfileRow
-                        icon={<KeyRound size={21} color="#111827" />}
-                        iconBackground="#E8F7ED"
-                        title="Зміна пароля"
-                        subtitle="Змінити свій пароль на новий"
-                    />
                 </View>
 
                 <Button
