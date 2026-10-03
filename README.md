@@ -1,50 +1,113 @@
-# Welcome to your Expo app 👋
+# 🚴 Glovo Riders Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> Мобільний застосунок **кур'єра** платформи доставки GlovoRemake (iOS / Android), побудований на **Expo** та **React Native**.
 
-## Get started
+![Expo](https://img.shields.io/badge/Expo-57-000020?logo=expo&logoColor=white)
+![React Native](https://img.shields.io/badge/React%20Native-0.86-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)
+![NativeWind](https://img.shields.io/badge/NativeWind-4-38BDF8)
 
-1. Install dependencies
+## 📖 Про проєкт
 
-   ```bash
-   npm install
-   ```
+Застосунок для кур'єрів: прийняття замовлень, навігація до закладу та клієнта, оновлення статусу доставки. Працює з [GlovoAPI](https://github.com/GlovoRemake/GlovoAPI).
 
-2. Start the app
+<!-- TODO: перелік реальних екранів -->
 
-   ```bash
-   npx expo start
-   ```
+## ✨ Можливості
 
-In the output, you'll find options to open the app in a
+<!-- TODO: залиште лише реалізоване -->
+- 🔐 Авторизація кур'єра (`expo-auth-session`, `expo-secure-store`)
+- 📦 Отримання нових замовлень у реальному часі (SignalR)
+- 🗺️ Карта та маршрут (`react-native-maps`)
+- 📍 Передача геолокації (`expo-location`)
+- ✅ Зміна статусу замовлення
+- 🖼️ Завантаження фото (`expo-image-picker`)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🧰 Технологічний стек
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+| Категорія | Технології |
+|---|---|
+| Платформа | Expo SDK 57, React Native 0.86, React 19 |
+| Навігація | Expo Router (file-based routing), React Navigation |
+| Стилі | NativeWind 4 (Tailwind), `@rn-primitives`, `@gorhom/bottom-sheet` |
+| Стан | Redux Toolkit |
+| Форми | React Hook Form |
+| Real-time | `@microsoft/signalr` |
+| Анімації | Reanimated 4, Gesture Handler |
+| Мова | TypeScript |
 
-## Get a fresh project
+## 🚀 Швидкий старт
 
-When you're ready, run:
+### Вимоги
+
+- Node.js 20+
+- Android Studio (емулятор) та/або Xcode (лише macOS)
+- Запущений [GlovoAPI](https://github.com/GlovoRemake/GlovoAPI)
+
+### Встановлення
 
 ```bash
-npm run reset-project
+git clone https://github.com/GlovoRemake/GlovoRidersMobile.git
+cd GlovoRidersMobile
+
+npm install
+cp .env.example .env     # заповніть значення
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Запуск
 
-## Learn more
+```bash
+npm start            # Expo dev server
+npm run android      # збірка та запуск на Android
+npm run ios          # збірка та запуск на iOS
+npm run web          # веб-версія
+npm run lint         # перевірка коду
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+> Через `expo-dev-client` і нативні модулі (карти, геолокація) рекомендований шлях — **development build**, а не Expo Go.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## ⚙️ Конфігурація
 
-## Join the community
+Змінні задаються в `.env` (див. `.env.example`).
 
-Join our community of developers creating universal apps.
+| Змінна | Опис |
+|---|---|
+| `EXPO_PUBLIC_...` | Адреса GlovoAPI <!-- TODO: реальна назва --> |
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+> Змінні `EXPO_PUBLIC_*` потрапляють у клієнтський бандл — не зберігайте в них секрети.
+
+## 🗂️ Структура
+
+```
+├── app/           # Екрани (Expo Router)
+├── components/    # UI-компоненти
+├── hooks/         # Кастомні хуки
+├── lib/           # Допоміжні бібліотеки
+├── store/         # Redux store
+├── types/         # TypeScript-типи
+├── utils/         # Утиліти
+├── assets/images/ # Зображення
+└── scripts/       # Службові скрипти
+```
+
+## 🔗 Екосистема GlovoRemake
+
+| Репозиторій | Призначення |
+|---|---|
+| [GlovoAPI](https://github.com/GlovoRemake/GlovoAPI) | Backend (ASP.NET Core, .NET 10) |
+| [GlovoPartnersFrontend](https://github.com/GlovoRemake/GlovoPartnersFrontend) | Кабінет партнера |
+| [GlovoAdmin](https://github.com/GlovoRemake/GlovoAdmin) | Адмін-панель |
+| [GlovoMobile](https://github.com/GlovoRemake/GlovoMobile) | Застосунок клієнта |
+| **GlovoRidersMobile** | Застосунок кур'єра (цей репозиторій) |
+
+## 🤝 Внесок
+
+1. Fork → гілка `feature/...`
+2. `npm run lint` без помилок
+3. Pull Request
+
+## 📄 Ліцензія
+
+<!-- TODO: додайте LICENSE -->
+
+> ℹ️ Навчальний / фан-проєкт, **не пов'язаний із Glovo**.
